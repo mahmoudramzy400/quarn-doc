@@ -30,7 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         //ayaTextView = findViewById(R.id.text_aya);
 
-        readUthmaniAyats();
+        readUthmanSmartiAyats();
 
         DatabaseHelper databaseHelper =  new DatabaseHelper(this);
         database = databaseHelper.openDatabase();
@@ -44,7 +44,7 @@ public class MainActivity2 extends AppCompatActivity {
         String str = "" ;
         try {
 
-            InputStream inputStream = getAssets().open("HafsSmart_08.txt");
+            InputStream inputStream = getAssets().open("UthmanicHafs_V20.doc.txt");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
@@ -55,14 +55,49 @@ public class MainActivity2 extends AppCompatActivity {
             str = str.replaceAll("\n" ,"");
             str = str.replaceAll("\n\n" ,"");
 
-          // uthmanQuarnAyats =  str.split("[٠-٩]+");
-            uthmanQuarnAyats =  str.split("[\uE95A-\uE962]+");
+             uthmanQuarnAyats =  str.split("[٠-٩]+");
+            // uthmanQuarnAyats =  str.split("[\uE959-\uEA77]+");
+            //uthmanQuarnAyats =  str.split("[\uE959-\uEA77]+");
 
             Log.d(TAG, "readFile: array size :"+ uthmanQuarnAyats.length);
 
             for (int i = 0 ; i <300 ;i++){
                 Log.d(TAG, "readFile: line :" +uthmanQuarnAyats[i]);
             }
+
+
+        } catch (IOException e) {
+            Log.e(TAG, "readFile: error:"+ e
+            );
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void readUthmanSmartiAyats(){
+        String str = "" ;
+        try {
+
+            InputStream inputStream = getAssets().open("HafsSmart_08.txt");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+
+            str = new String(buffer,"utf-8");
+
+
+            str =str.trim();
+            str = str.replaceAll("\n" ,"");
+          //  str = str.replaceAll("\n\n" ,"");
+
+          // uthmanQuarnAyats =  str.split("[٠-٩]+");
+            // uthmanQuarnAyats =  str.split("[\uE959-\uEA77]+");
+            uthmanQuarnAyats =  str.split("[\uE959-\uEA77]+");
+
+            Log.d(TAG, "readFile: array size :"+ uthmanQuarnAyats.length);
+
+          //  for (int i = 0 ; i <300 ;i++){
+                //Log.d(TAG, "readFile: line :" +uthmanQuarnAyats[i]);
+           // }
 
 
         } catch (IOException e) {
@@ -92,9 +127,12 @@ public class MainActivity2 extends AppCompatActivity {
 
         for (int i =0 ;i<  uthmanQuarnAyats.length ; i++) {
             String aya = uthmanQuarnAyats[i];
+            StringBuffer bufferAya = new StringBuffer(aya);
+            Log.d(TAG, "updateUthmaniColumn: aya: "+ bufferAya);
 
+            bufferAya = bufferAya.reverse();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(UTHMANI_AYATS_COLUMN,aya);
+            contentValues.put(UTHMANI_AYATS_COLUMN,bufferAya.toString());
             database.update(ARABIC_AYATS_TABLE,contentValues,AYAT_INDEX_COLUMN + " = ?",new String[]{i+1+""});
 
         }

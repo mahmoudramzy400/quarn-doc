@@ -102,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mInput.close();
 
         // If you need to add a column
-        openDatabase().execSQL("ALTER TABLE ayats_arabic ADD COLUMN text_uthmani_smart String ");
+        openDatabase().execSQL("ALTER TABLE ayats_arabic ADD COLUMN text_uthmani_smart TEXT NOT NULL DEFAULT '--'");
     }
     //delete database
     public void db_delete()
