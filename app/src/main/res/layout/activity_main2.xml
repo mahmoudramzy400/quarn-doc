@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:id="@+id/text_aya"
         android:textSize="24dp"
-        android:fontFamily="@font/indo_wof"
         android:text="U+FDF0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

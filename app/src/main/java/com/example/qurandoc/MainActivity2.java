@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,18 +19,18 @@ import java.util.ArrayList;
 public class MainActivity2 extends AppCompatActivity {
     private static final String TAG = "MainActivity2";
     private static final String ARABIC_AYATS_TABLE ="ayats_arabic";
-    public static final String WARSH_AYATS_COLUMN ="text_uthmani_warsh";
+    public static final String SHUBA_AYATS_COLUMN ="text_uthmani_shuba";
     private static final String AYAT_INDEX_COLUMN = "ayat_index";
 
     private SQLiteDatabase database;
-    private  ArrayList<String> warshQuarnAyatsList = new ArrayList<>();
+    private  ArrayList<String> shubahQuarnAyatsList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
 
-        readUthmaniWarsh();
+        readUthmaniShuba();
 
         DatabaseHelper databaseHelper =  new DatabaseHelper(this);
         database = databaseHelper.openDatabase();
@@ -72,11 +71,11 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }*/
 
-    private void readUthmaniWarsh(){
+    private void readUthmaniShuba(){
         String str = "" ;
         try {
 
-            InputStream inputStream = getAssets().open("warsh_data_v2.json");
+            InputStream inputStream = getAssets().open("shuba_data_v2.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
@@ -88,7 +87,7 @@ public class MainActivity2 extends AppCompatActivity {
             for (int i=0; i< jsonArray.length(); i++){
                 JSONObject ayaJson = jsonArray.getJSONObject(i);
                 String ayaText = ayaJson.getString("aya_text");
-                warshQuarnAyatsList.add(ayaText);
+                shubahQuarnAyatsList.add(ayaText);
 
             }
         } catch (IOException e) {
@@ -118,11 +117,11 @@ public class MainActivity2 extends AppCompatActivity {
     private void updateUthmaniColumn(){
 
 
-        for (int i = 0; i<  warshQuarnAyatsList.size() ; i++) {
-            String aya = warshQuarnAyatsList.get(i);
+        for (int i = 0; i<  shubahQuarnAyatsList.size() ; i++) {
+            String aya = shubahQuarnAyatsList.get(i);
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(WARSH_AYATS_COLUMN,aya);
+            contentValues.put(SHUBA_AYATS_COLUMN,aya);
             database.update(ARABIC_AYATS_TABLE,contentValues,AYAT_INDEX_COLUMN + " = ?",new String[]{i+1+""});
 
         }

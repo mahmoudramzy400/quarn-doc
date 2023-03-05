@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // If you need to add a column
         openDatabase().execSQL("ALTER TABLE ayats_arabic ADD COLUMN " +
-                MainActivity2.WARSH_AYATS_COLUMN +
+                MainActivity2.SHUBA_AYATS_COLUMN +
                 " TEXT NOT NULL DEFAULT ' '");
     }
 
