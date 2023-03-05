@@ -12,9 +12,8 @@
         android:id="@+id/ayat_arabic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/hafs_smart_08"
-        android:text="‏‏‏ ‏‏‏‏‏ ‏ ‏‏‏ ‏‏‏ ‏‏‏ ‏‏‏‏‏‏ ‏
-"
+        android:fontFamily="@font/uthmanic_warsh_v21"
+        android:text="مِن شَرِّ اِ۬لْوَسْوَاسِ اِ۬لْخَنَّاسِ ﰃ"
         android:textColor="@color/black"
         android:textSize="44sp"
         android:padding="8dp"
